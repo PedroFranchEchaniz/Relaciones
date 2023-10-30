@@ -27,6 +27,61 @@ public class Alumno {
 
     private Date fechaNacimiento;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public List<Asignatura> getAsignaturas() {
+        return asignaturas;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setAsignaturas(List<Asignatura> asignaturas) {
+        this.asignaturas = asignaturas;
+    }
 
     @ManyToMany
     @JoinTable(name = "Matricula",
@@ -34,14 +89,17 @@ public class Alumno {
             inverseJoinColumns = @JoinColumn(name = "asignaturas_id"))
     private List<Asignatura> asignaturas = new ArrayList<>();
 
-    public void addAsignatura(Asignatura a){
-        this.asignaturas.add(a);
-        a.getAlumnos().add(this);
+    public void addAsignatura(Asignatura asignatura){
+        this.asignaturas.add(asignatura);
+        asignatura.getAlumnos().add(this);
     }
 
     public void deleteAsignatura (Asignatura a){
         this.asignaturas.remove(a);
         a.getAlumnos().remove(this);
     }
+
+    @OneToMany(mappedBy = "alumno")
+    private List<Calificacion> calificaciones = new ArrayList<>();
 
 }
